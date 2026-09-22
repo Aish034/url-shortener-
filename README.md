@@ -77,3 +77,32 @@ mocked repository (unit), and full create→redirect flow plus error cases
 ## Configuration
 See `src/main/resources/application.yml` for base URL, short-code length,
 cache TTL, and rate-limit settings.
+
+
+EXAMPLES :::
+
+Example 1::
+aishwarya ~ % curl -X POST http://localhost:8080/api/urls \
+  -H "Content-Type: application/json" \
+  -d '{"originalUrl":"https://example.com"}'
+  
+Output:
+{"shortCode":"1","shortUrl":"http://localhost:8080/1","originalUrl":"https://example.com","createdAt":"2026-09-22T16:47:54.389041Z","expiresAt":null}%    
+
+Example 2::
+aishwarya ~ % for i in 1 2 3 4 5 6 7; do
+  curl -s -o /dev/null -w "%{http_code}\n" -X POST http://localhost:8080/api/urls \
+    -H "Content-Type: application/json" \
+    -d "{\"originalUrl\":\"https://example.com/api?x=$i\"}"
+done
+
+Output:
+201
+201
+201
+201
+201
+429
+429
+
+
