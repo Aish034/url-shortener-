@@ -28,8 +28,8 @@ app:
   short-code:
     length: 7
   rate-limit:
-    capacity: 20
-    refill-per-minute: 20
+    capacity: 5
+    refill-per-minute: 5
 
 management:
   endpoints:
